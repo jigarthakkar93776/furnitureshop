@@ -1,0 +1,115 @@
+{% extends 'seller_header.html' %}
+{% load static %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+    <head>
+    	
+    </head>
+	
+	<body>
+		<center>
+			
+			<form style="margin-top: 150px;" method="post" action="{% url 'seller_edit_product' pk=product.pk %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				<table>
+					<tr>
+						<td colspan="2" align="center">
+								{% if msg %}
+									<p style="color: red;">{{msg}}</p>
+								{% endif %}
+						</td>
+					</tr>
+					<tr>
+						<td>Product Categoary</td>
+						<td>
+							<input type="text" name="product_category" value="{{product.product_category}}" readonly="readonly">
+						</td>
+					</tr>
+					<tr>
+						<td>Product Name</td>
+						<td><input type="text" name="product_name" value="{{product.product_name}}"></td>
+					</tr>
+					<tr>
+						<td>Product Price</td>
+						<td><input type="text" name="product_price" value="{{product.product_price}}"></td>
+					</tr>
+					
+					<tr>
+						<td>Product Description</td>
+						<td><textarea rows="5" cols="22" name="product_desc">{{product.product_desc}}</textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<img src="{{product.product_image.url}}" width="100px" height="100px">
+						</td>
+					</tr>
+					<tr>
+						<td>Product Image</td>
+						<td><input type="file" name="product_image"></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<input type="submit" value="Edit Product" class="btn btn-primary">
+						</td>
+					</tr>
+					
+				</table>
+			</form>
+		</center>
+		<!--populer-products start -->
+		<!--footer start-->
+		<footer id="footer"  class="footer">
+			<div class="container">
+				<div class="hm-footer-copyright text-center">
+					<div class="footer-social">
+						<a href="#"><i class="fa fa-facebook"></i></a>	
+						<a href="#"><i class="fa fa-instagram"></i></a>
+						<a href="#"><i class="fa fa-linkedin"></i></a>
+						<a href="#"><i class="fa fa-pinterest"></i></a>
+						<a href="#"><i class="fa fa-behance"></i></a>	
+					</div>
+					<p>
+						&copy;copyright. designed and developed by <a href="https://www.themesine.com/">themesine</a>
+					</p><!--/p-->
+				</div><!--/.text-center-->
+			</div><!--/.container-->
+
+			<div id="scroll-Top">
+				<div class="return-to-top">
+					<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
+				</div>
+				
+			</div><!--/.scroll-Top-->
+			
+        </footer><!--/.footer-->
+		<!--footer end-->
+		
+		<!-- Include all js compiled plugins (below), or include individual files as needed -->
+
+		<script src="{% static 'assets/js/jquery.js' %}"></script>
+        
+        <!--modernizr.min.js-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+		
+		<!--bootstrap.min.js-->
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+		
+		<!-- bootsnav js -->
+		<script src="{% static 'assets/js/bootsnav.js' %}"></script>
+
+		<!--owl.carousel.js-->
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+		
+        
+        <!--Custom JS-->
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+        
+    </body>
+	
+</html>
+{% endblock %}

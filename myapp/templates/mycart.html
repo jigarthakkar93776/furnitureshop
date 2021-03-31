@@ -1,0 +1,144 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+    <head>
+    </head>
+	
+	<body>
+		<header id="home" class="welcome-hero">
+
+			
+			
+		<!--populer-products start -->
+		
+		<!--new-arrivals start -->
+		<section id="new-arrivals" class="new-arrivals">
+			<div class="container">
+				<div class="section-header">
+					<h2>My Cart</h2>
+					<h4>
+						{% if msg %}
+							{{msg}}
+						{% endif %}
+					</h4>
+				</div><!--/.section-header-->
+				<div class="new-arrivals-content">
+					<div class="row">
+						{% for i in carts %}
+						<div class="col-md-3 col-sm-4">
+							<div class="single-new-arrival">
+								<div class="single-new-arrival-bg">
+									<img src="{{i.product.product_image.url}}" alt="new-arrivals images" style="width: 100px; height: 100px;">
+									<div class="single-new-arrival-bg-overlay"></div>
+									<div class="sale bg-1">
+										<p>sale</p>
+									</div>
+									<div class="new-arrival-cart">
+										{% if request.session.email %}
+											<p>
+												<span class="lnr lnr-cart"></span>
+												<a href="#">add <span>to </span> cart</a>
+											</p>
+											
+										{% else %}
+											<p>
+												<span class="lnr lnr-cart"></span>
+												<a href="#">Login</a>
+											</p>
+											
+										{% endif %}
+										
+									</div>
+								</div>
+								<h4 ><a href="#">{{i.product.product_name}}</a></h4>
+								Price : <p class="arrival-product-price">{{i.price}}</p>
+								<form name="cart" method="post" action="{% url 'change_qty' pk=i.pk %}">
+									{% csrf_token %}
+									Qty : <input type="number" name="qty" value="{{i.qty}}" min="1" max="10" onchange="this.form.submit();">
+									
+								</form>
+								Total Price : <p class="arrival-product-price">{{i.price_qty}}</p>
+								<br>
+								<a href="{% url 'remove_from_cart' pk=i.product.pk %}">
+									<input type="button" name="action" value="Remove From Cart" class="btn btn-primary">
+								</a>
+							</div>
+						</div>
+						{% endfor %}
+						
+					</div>
+					<form name="checkout" method="post" action="{% url 'pay' %}">
+						{% csrf_token %}
+						Net Price : {{net_price}}
+						<input type="hidden" name="amount" value="{{net_price}}" readonly="readonly">
+						<input type="submit" name="action" value="Checkout" class="btn btn-danger">
+					</form>
+						
+
+					
+				</div>
+			</div><!--/.container-->
+		
+		</section><!--/.new-arrivals-->
+		<!--new-arrivals end -->
+
+		<!--sofa-collection start -->
+		
+
+		<!--footer start-->
+		<footer id="footer"  class="footer">
+			<div class="container">
+				<div class="hm-footer-copyright text-center">
+					<div class="footer-social">
+						<a href="#"><i class="fa fa-facebook"></i></a>	
+						<a href="#"><i class="fa fa-instagram"></i></a>
+						<a href="#"><i class="fa fa-linkedin"></i></a>
+						<a href="#"><i class="fa fa-pinterest"></i></a>
+						<a href="#"><i class="fa fa-behance"></i></a>	
+					</div>
+					<p>
+						&copy;copyright. designed and developed by <a href="https://www.themesine.com/">themesine</a>
+					</p><!--/p-->
+				</div><!--/.text-center-->
+			</div><!--/.container-->
+
+			<div id="scroll-Top">
+				<div class="return-to-top">
+					<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
+				</div>
+				
+			</div><!--/.scroll-Top-->
+			
+        </footer><!--/.footer-->
+		<!--footer end-->
+		
+		<!-- Include all js compiled plugins (below), or include individual files as needed -->
+
+		<script src="{% static 'assets/js/jquery.js' %}"></script>
+        
+        <!--modernizr.min.js-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+		
+		<!--bootstrap.min.js-->
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+		
+		<!-- bootsnav js -->
+		<script src="{% static 'assets/js/bootsnav.js' %}"></script>
+
+		<!--owl.carousel.js-->
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+		
+        
+        <!--Custom JS-->
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+        
+    </body>
+	
+</html>
+{% endblock %}
